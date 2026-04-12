@@ -20,17 +20,17 @@ pipeline {
      stage('Run Tests') {
          steps {
             sh 'python3 -m pytest' 
-      }
-   }
-}
+              }
+          }
+     }
             
      stage('Security Scan') {
         steps {
             sh 'pip install bandit'
             sh 'bandit -r . -f txt -o bandit_report.txt || true'
-       }
-    }
-}
+              }
+          }
+     }
         stage('Build Docker Image') {
             steps {
                 script {
