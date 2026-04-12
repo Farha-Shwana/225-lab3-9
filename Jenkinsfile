@@ -17,6 +17,19 @@ pipeline {
                           userRemoteConfigs: [[url: "${GITHUB_URL}"]]])
             }
         }
+        stage('Run Tests') {
+    steps {
+        sh 'pip install -r requirements.txt || true'
+        sh 'pip install pytest'
+        sh 'pytest'
+    }
+}
+        stage('Security Scan') {
+    steps {
+        sh 'pip install bandit'
+        sh 'bandit -r .'
+    }
+}
 
         stage('Build Docker Image') {
             steps {
