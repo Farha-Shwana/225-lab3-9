@@ -19,7 +19,6 @@ pipeline {
         }
         stage('Run Tests') {
     steps {
-        sh 'pip install -r requirements.txt || true'
         sh 'pip install pytest'
         sh 'pytest'
     }
