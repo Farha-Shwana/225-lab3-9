@@ -1,5 +1,6 @@
 pipeline {
-    agent any 
+    agent {
+        docker { image 'python:3.9-slim' }
 
     environment {
         DOCKER_CREDENTIALS_ID = 'roseaw-dockerhub'  
@@ -83,4 +84,5 @@ stage('Run Tests') {
             slackSend color: "danger", message: "Build Completed: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
         }
     }
+}
 }
