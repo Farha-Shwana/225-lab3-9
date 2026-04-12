@@ -1,6 +1,6 @@
 pipeline {
-    agent {
-        docker { image 'python:3.9-slim' }
+    agent any
+       
 
     environment {
         DOCKER_CREDENTIALS_ID = 'roseaw-dockerhub'  
@@ -85,4 +85,4 @@ stage('Run Tests') {
         }
     }
 }
-}
+
