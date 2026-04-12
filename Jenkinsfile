@@ -21,22 +21,16 @@ pipeline {
     
    stage('Run Tests') {
     steps {
-        sh '''
-            apt-get update
-            apt-get install -y python3 python3-pip
-            pip3 install pytest
-            pytest
-        '''
+        script {
+            docker.image('python:3.9-slim').run('--rm -v $WORKSPACE:/app -w /app bash -c "pip install pytest && pytest"')
+        }
     }
 }
      stage('Security Scan') {
     steps {
-        sh '''
-            apt-get update
-            apt-get install -y python3 python3-pip
-            pip3 install bandit
-            bandit -r .
-        '''
+        script {
+            docker.image('python:3.9-slim').run('--rm -v $WORKSPACE:/app -w /app bash -c "pip install bandit && bandit -r ."')
+        }
     }
 }
         stage('Build Docker Image') {
