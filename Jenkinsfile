@@ -19,16 +19,16 @@ pipeline {
             }
         }
     
-stage('Run Tests') {
-    steps {
-        sh 'pip install pytest'
-        sh 'pytest'
+    stage('Run Tests') {
+         steps {
+              sh 'pip install pytest'
+              sh 'pytest'
     }
 }
-        stage('Security Scan') {
-    steps {
-        sh 'pip install bandit'
-        sh 'bandit -r .'
+     stage('Security Scan') {
+         steps {
+            sh 'pip install bandit'
+            sh 'bandit -r .'
     }
 }
         stage('Build Docker Image') {
