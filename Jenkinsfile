@@ -19,21 +19,24 @@ pipeline {
             }
         }
     
-    stage('Run Tests') {
-         steps {
-              docker.image('python:3.9-slim').inside {
-              sh 'pip install -r requirements.txt || true'
-              sh 'pip install pytest'
-              sh 'pytest'
-              }
+   stage('Run Tests') {
+    steps {
+        sh '''
+            apt-get update
+            apt-get install -y python3 python3-pip
+            pip3 install pytest
+            pytest
+        '''
     }
 }
      stage('Security Scan') {
-         steps {
-            docker.image('python:3.9-slim').inside {
-            sh 'pip install bandit'
-            sh 'bandit -r .'
-            }
+    steps {
+        sh '''
+            apt-get update
+            apt-get install -y python3 python3-pip
+            pip3 install bandit
+            bandit -r .
+        '''
     }
 }
         stage('Build Docker Image') {
