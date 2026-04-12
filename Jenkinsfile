@@ -15,17 +15,6 @@ pipeline {
                 cleanWs()
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']],
                           userRemoteConfigs: [[url: "${GITHUB_URL}"]]])
-            }
-        }
-     stage('Run Tests') {
-        
-          }
-     }
-            
-     stage('Security Scan') {
-        
-          }
-     }
 
         stage('Build Docker Image') {
             steps {
