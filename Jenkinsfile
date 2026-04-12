@@ -17,21 +17,20 @@ pipeline {
                           userRemoteConfigs: [[url: "${GITHUB_URL}"]]])
             }
         }
-        stage('Run Tests') {
-    steps {
-        docker.image('python:3.11').inside {
-        sh 'pip install -r requirements.txt || true'
-        sh 'pip install pytest'
-        sh 'pytest'
+     stage('Run Tests') {
+         steps {
+            docker.image('python:3.11').inside {
+           sh 'pip install -r requirements.txt || true'
+           sh 'pytest'
       }
    }
 }
             
-        stage('Security Scan') {
-    steps {
-        docker.image('python:3.11').inside {
-        sh 'pip install bandit'
-        sh 'bandit -r .'
+     stage('Security Scan') {
+        steps {
+           docker.image('python:3.11').inside {
+            sh 'pip install bandit'
+          sh 'bandit -r .'
        }
     }
 }
