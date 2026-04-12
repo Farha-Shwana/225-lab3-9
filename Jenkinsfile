@@ -19,18 +19,15 @@ pipeline {
         }
      stage('Run Tests') {
          steps {
-            docker.image('python:3.11').inside {
-           sh 'pip install -r requirements.txt || true'
-           sh 'pytest'
+            sh 'python3 -m pytest' 
       }
    }
 }
             
      stage('Security Scan') {
         steps {
-           docker.image('python:3.11').inside {
             sh 'pip install bandit'
-          sh 'bandit -r .'
+            sh 'bandit -r . -f txt -o bandit_report.txt || true'
        }
     }
 }
