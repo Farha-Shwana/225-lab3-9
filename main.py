@@ -3,7 +3,7 @@ import sqlite3
 import os
 
 app = Flask(__name__)
-app.secret_key = 'supersecretkey'  # Needed for flash messages
+app.secret_key = os.environ.get('SECRET_KEY', os.urandom(24))  # Needed for flash messages
 
 # Database file path
 DATABASE = 'demo.db'
@@ -96,4 +96,4 @@ def index():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     init_db()  # Initialize the database and table
-    app.run(debug=True, host='0.0.0.0', port=port)
+    app.run(debug=False, host='0.0.0.0', port=port)
